@@ -2,7 +2,16 @@ const database = require("../main/datbase");
 
 
 module.exports = {
-    printInventory
+    printInventory,
+    splitcode,
+    count,
+    promotionreduce,
+    gifts,
+    printlista,
+    printlistb,
+    printer
+
+
 };
 
 function printInventory(inputs) {
@@ -35,13 +44,13 @@ function count(item) {
 
         for (let items of res) {
             if (items.barcode === result[0]) {
-                items.count += result[1];
+                items.count += parseInt(result[1]);
                 flag = true;
                 break;
             }
         }
         if (flag === false) {
-            res.push({ barcode: result[0], count: result[1] });
+            res.push({ barcode: result[0], count: parseInt(result[1]) });
         }
     }
     let list = database.loadAllItems();

@@ -1,6 +1,51 @@
 const main = require("../main/main");
 const database = require("../main/datbase");
 
+describe("splitcode", function() {
+    let inputs;
+    let answer;
+    let result;
+    it("input string contain - and split into two parts at -", function() {
+        inputs = "ITEM000003-8";
+        answer = ["ITEM000003", "8"];
+        result = main.splitcode(inputs);
+        expect(result).toEqual(answer);
+    });
+
+    it("input barcode have no - and then return its count witn 1", function() {
+        inputs = "ITEM000002";
+        answer = ["ITEM000002", 1];
+        result = main.splitcode(inputs);
+
+        expect(result).toEqual(answer);
+    });
+});
+
+describe("count", function() {
+    let inputs;
+    let answer;
+    let result;
+    it("input array of items' barcodes return the items' information after discount", function() {
+        inputs = [
+            'ITEM000000-6',
+            'ITEM000001-3',
+            'ITEM000002',
+            'ITEM000003-3',
+        ];
+
+        result = main.count(inputs);
+        answer = [
+            { barcode: 'ITEM000000', count: 6, name: "可口可乐", unit: "瓶", price: 3.00, total: 12.00 },
+            { barcode: 'ITEM000001', count: 3, name: "雪碧", unit: "瓶", price: 3.00, total: 6.00 },
+            { barcode: 'ITEM000002', count: 1, name: "苹果", unit: "斤", price: 5.50, total: 5.50 },
+            { barcode: 'ITEM000003', count: 3, name: "荔枝", unit: "斤", price: 15.00, total: 45.00 },
+        ];
+
+        expect(result).toEqual(answer);
+    });
+});
+
+
 
 describe('pos', function() {
     var allItems;
